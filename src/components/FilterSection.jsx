@@ -1,0 +1,48 @@
+import React, { useContext } from 'react'
+import { DataContext } from '../context/DataContext'
+import { getData } from '../context/DataContext'
+
+const FilterSection = ({ search,setCategory,setBrand, setSearch, brand, priceRange, setPriceRange, category, handleCategoryChange, handleBrandChange }) => {
+  const { categoryOnlyData, brandOnlyData } = getData()
+  return (
+    <div className='bg-gray-100 mt-10 p-4 rounded-md h-max hidden md:block'>
+      <input type="text" placeholder='Search... ' value={search} onChange={(e) => setSearch(e.target.value)} className='bg-white p-2 ' />
+      {/* Catwgory only data */}
+      <h1 className='mt-5 font-semibold text-xl '>Category</h1>
+      <div className='flex flex-col gap-2 mt-2'>
+        {
+          categoryOnlyData?.map((item, index) => {
+            return <div key={index} className='flex gap-2'>
+              <input type="checkbox" name={item} checked={category === item} onChange={handleCategoryChange} value={item} className='w-4' />
+              <button className='cursor-pointer uppercase'>{item}</button>
+            </div>
+
+
+          })
+        }
+
+      </div>
+      {/* brand only Data */}
+      <h1 className='mt-5 font-semibold text-x mb-3 '>Brand</h1>
+      <select className='bg-white w-full p-2 border-gray-200 border-2 rounded-md' name="" id="" onChange={handleBrandChange} value={brand} >
+        {
+          brandOnlyData?.map((item, index) => {
+            return <option key={index} value={item}>{item.toUpperCase()}</option>
+          })
+        }
+      </select>
+      {/* price range */}
+      <h1 className='mt-5 font-semibold text-x mb-3 '>Price Range</h1>
+      <div className='flex flex-col gap-2'>
+        <label htmlFor="">Price Range: ${priceRange[0]} - ${priceRange[1]}</label>
+        <input type="range" min="0" max="50000" name='' id='' value={priceRange[1]} onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])} />
+      </div>
+      <button className='bg-red-500 text-white rounded-md px-3  py-1 mt-5 cursor-pointer '
+      onClick={()=>{setSearch(''); setCategory('All'); setBrand('All');setPriceRange([0,5000]) }}
+      >Reset Filter</button>
+
+    </div>
+  )
+}
+
+export default FilterSection
