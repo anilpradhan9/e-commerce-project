@@ -1,36 +1,38 @@
-import { children, createContext, useContext, useState } from "react";
 import axios from "axios";
+import { createContext, useContext, useState } from "react";
 
 export const DataContext = createContext(null);
+
 export const DataProvider = ({ children }) => {
-    const [data, setData] = useState();
-    // Fathings all Products
+    const [data, setData] = useState()
+
+    // fetching all products from api
     const fetchAllProducts = async () => {
         try {
-            const res = await axios.get(`https://fakestoreapi.in/api/products?limit=150`)
-            console.log(res)
-            const productsData = res.data.products
-            setData(productsData);
+           const res = await axios.get('https://fakestoreapi.in/api/products?limit=150')
+           console.log(res);
+           const productsData = res.data.products
+           setData(productsData)
+           
         } catch (error) {
-            console.error("Error fetching products:", error);
+            console.log(error);
+
         }
     }
 
-        const getUniqueCategories = (data, property) => {
-        let newVAL = data?.map((curElem) => {
+    const getUniqueCategory = (data, property) =>{
+        let newVal = data?.map((curElem) =>{
             return curElem[property]
         })
-        newVAL = ["All",...new Set(newVAL)]
-        return newVAL
-    }
-    const categoryOnlyData = getUniqueCategories(data, 'category')
-    const brandOnlyData = getUniqueCategories(data, 'brand')
-
-
-    return <DataContext.Provider value={{ data, setData, fetchAllProducts,categoryOnlyData, brandOnlyData }}>
+        newVal = ["All",...new Set(newVal)]
+        return newVal
+      }
+    
+      const categoryOnlyData = getUniqueCategory(data, "category")
+      const brandOnlyData = getUniqueCategory(data, "brand")
+    return <DataContext.Provider value={{ data, setData,fetchAllProducts, categoryOnlyData, brandOnlyData }}>
         {children}
     </DataContext.Provider>
 }
 
-
-export const getData = ()=>useContext(DataContext);
+export const getData = ()=> useContext(DataContext)

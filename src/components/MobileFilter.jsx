@@ -9,7 +9,7 @@ const MobileFilter = ({ openFilter, setOpenFilter, search, setSearch, brand, set
     const toggleFilter = ()=>{
         setOpenFilter(!openFilter)
     }
-   return (
+    return (
         <>
             <div className='bg-gray-100 flex justify-between items-center md:hidden px-4 p-2 mt-5'>
                 <h1 className='font-semibold text-xl'>Filters</h1>
@@ -59,9 +59,8 @@ const MobileFilter = ({ openFilter, setOpenFilter, search, setSearch, brand, set
                     >Reset Filters</button>
                 </div> : null
             }
-    </>
-
-  )
+        </>
+    )
 }
 
 export default MobileFilter

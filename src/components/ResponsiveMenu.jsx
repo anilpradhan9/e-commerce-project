@@ -1,15 +1,13 @@
-import { useUser } from '@clerk/clerk-react'
+import { UserButton, useUser } from '@clerk/clerk-react'
 import React from 'react'
 import { FaUserCircle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { UserButton } from '@clerk/clerk-react'
-
+import { Link, NavLink } from 'react-router-dom'
 
 const ResponsiveMenu = ({ openNav, setOpenNav }) => {
     const { user } = useUser()
     return (
-        <div className={`${openNav ? "left-0" : "-left-[100%]"} fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-white px-8 pb-6 pt-16 text-black md:hidden rounded-r-xl shadow-md transition-all  `}>
-             <div>
+        <div className={`${openNav ? "left-0" : "-left-[100%]"} fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-white px-8 pb-6 pt-16 text-black md:hidden rounded-r-xl shadow-md transition-all`}>
+            <div>
                 <div className='flex items-center justify-start gap-3'>
                     {
                         user ? <UserButton size={50} /> : <FaUserCircle size={50} />
